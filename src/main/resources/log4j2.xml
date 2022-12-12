@@ -4,9 +4,6 @@
         <File name="OutFileNormal" fileName="C:\Users\plame\IdeaProjects\infinno-test-20-tokens\src\main\java\com\example\infinnotest20tokens\info.log" immediateFlush="true" append="true">
             <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="ACCEPT"/>
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-<!--            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>-->
-<!--            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>-->
-<!--            <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>-->
         </File>
         <File name="OutFileError" fileName="C:\Users\plame\IdeaProjects\infinno-test-20-tokens\src\main\java\com\example\infinnotest20tokens\error.log" immediateFlush="true" append="true">
             <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
@@ -20,7 +17,6 @@
         <Root level="debug">
             <AppenderRef ref="OutFileError"/>
             <AppenderRef ref="OutFileNormal"/>
-<!--            <AppenderRef ref="Console"/>-->
         </Root>
     </Loggers>
 </Configuration>
