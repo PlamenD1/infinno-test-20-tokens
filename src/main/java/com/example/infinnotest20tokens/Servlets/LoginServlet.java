@@ -20,7 +20,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.Year;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.Random;
@@ -69,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 
         Token token = tokensDAO.getTokenByUserId(userId);
 
-        if (token.token == null) {
+        if (token == null) {
             token = getToken(userId);
             tokensDAO.createToken(token);
         }
@@ -89,7 +93,7 @@ public class LoginServlet extends HttpServlet {
         int tokenNum = new Random().nextInt();
         String tokenHash = DigestUtils.sha1Hex(String.valueOf(tokenNum));
         String createdDate =  LocalDate.now().toString();
-        String expirationDate = LocalDate.now().plus(Token.expirationPeriod, ChronoUnit.MILLIS).toString();
+        String expirationDate = LocalDate.now().plusDays(Token.expirationPeriodInDays).toString();
 
         return new Token(tokenHash, userId, createdDate, expirationDate);
     }

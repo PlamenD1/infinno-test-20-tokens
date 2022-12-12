@@ -79,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
         int tokenNum = new Random().nextInt();
         String tokenHash = DigestUtils.sha1Hex(String.valueOf(tokenNum));
         String createdDate =  LocalDate.now().toString();
-        String expirationDate = LocalDate.now().plus(Token.expirationPeriod, ChronoUnit.MILLIS).toString();
+        String expirationDate = LocalDate.now().plusDays(Token.expirationPeriodInDays).toString();
 
         return new Token(tokenHash, userId, createdDate, expirationDate);
     }

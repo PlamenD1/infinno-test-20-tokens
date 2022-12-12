@@ -1,7 +1,7 @@
 package com.example.infinnotest20tokens.Models;
 
 public class Token {
-    public static long expirationPeriod = 2592000000L;
+    public static long expirationPeriodInDays = 31L;
 
     public String token;
     public Integer user_id;

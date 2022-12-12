@@ -6,20 +6,20 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 import java.util.logging.FileHandler;
-import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 
 public class LogFilter implements Filter {
-
-    Logger logger = Logger.getAnonymousLogger();
-    FileHandler fh;
+    Logger logger = LogManager.getLogger(LogFilter.class);
+//    FileHandler fh;
     GsonBuilder gsonBuilder = new GsonBuilder();
     Gson gson = gsonBuilder.setPrettyPrinting().create();
 
@@ -29,18 +29,17 @@ public class LogFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
 
-        logger.setUseParentHandlers(false);
-        try {
-            URL url = this.getClass().getClassLoader().getResource("logConfig.properties");
-            InputStream inputStream = url.openStream();
-            String filePath = getLogOutputFile(inputStream);
-            fh = new FileHandler(filePath);
-            logger.addHandler(fh);
-            SimpleFormatter formatter = new SimpleFormatter();
-            fh.setFormatter(formatter);
-        } catch (SecurityException | IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            URL url = this.getClass().getClassLoader().getResource("logConfig.properties");
+//            InputStream inputStream = url.openStream();
+//            String filePath = getLogOutputFile(inputStream);
+//            fh = new FileHandler(filePath);
+////            logger.addHandler(fh);
+//            SimpleFormatter formatter = new SimpleFormatter();
+//            fh.setFormatter(formatter);
+//        } catch (SecurityException | IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     static String getLogOutputFile(InputStream inputStream) throws IOException {
@@ -74,8 +73,10 @@ public class LogFilter implements Filter {
         String pathInfo = httpServletRequest.getPathInfo() == null ? "" : httpServletRequest.getPathInfo();
         String pathString = httpServletRequest.getServletPath() + pathInfo;
 
+        System.out.println(status);
+
         if (status >= 400) {
-            logger.severe("Error " + statusString +
+            logger.error("Error " + statusString +
                     userString +
                     executionTimeString +
                     methodString +

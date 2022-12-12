@@ -11,6 +11,7 @@ import java.util.TimerTask;
 public class TokenClearer {
 
     TokensDAO dao = new TokensDAO();
+    static long clearPeriod = 24 * 60 * 60 * 1000; //1 day
     public TokenClearer() throws FileNotFoundException {}
 
     void startClearing() {
@@ -28,6 +29,6 @@ public class TokenClearer {
                 }
 
             }
-        },86400000L, 86400000L);
+        }, clearPeriod, clearPeriod);
     }
 }
